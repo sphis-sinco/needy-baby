@@ -12,14 +12,16 @@ class PlayState extends FlxState
 
 	public var debugText:FlxText;
 
-	var baby:FlxSprite;
+	public var baby:FlxSprite;
+	public var babyTicks:Int = 0;
+	public var babyState:Int = 0;
 
 	override function create()
 	{
 		super.create();
 
 		baby = new FlxSprite();
-		baby.makeGraphic(128, 128, FlxColor.RED);
+		baby.makeGraphic(128, 128, FlxColor.WHITE);
 		baby.screenCenter();
 
 		add(baby);
@@ -38,11 +40,19 @@ class PlayState extends FlxState
 		super.update(elapsed);
 
 		worldTicks += 1;
+		babyTicks += 1;
 
 		debugText.visible = FlxG.keys.pressed.F3;
 		if (FlxG.keys.pressed.F3)
 		{
 			renderDebugInfo();
+		}
+
+		if (babyTicks >= 300 && babyState == 0)
+		{
+			baby.color = FlxColor.RED;
+			babyState = 1;
+			babyTicks = 0;
 		}
 	}
 
@@ -51,5 +61,6 @@ class PlayState extends FlxState
 		debugText.text = "Neba v" + Constants.APP_VERSION;
 
 		debugText.text += "\n\nWorld Ticks: " + worldTicks;
+		debugText.text += "\nBaby Ticks: " + babyTicks;
 	}
 }
