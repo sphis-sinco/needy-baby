@@ -6,6 +6,8 @@ import flixel.util.FlxColor;
 
 class PlayState extends FlxState
 {
+	public var worldTicks:Int = 0;
+
 	var baby:FlxSprite;
 
 	override function create()
@@ -22,5 +24,7 @@ class PlayState extends FlxState
 	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
+
+		worldTicks += 1;
 	}
 }
